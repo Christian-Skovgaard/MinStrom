@@ -9,20 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MaterialTheme {
-                EmojiScreen()
-            }
-        }
-    }
-}
 
 @Composable
-fun EmojiScreen() {
+fun EmojiScreen(navController: NavController) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -31,10 +23,13 @@ fun EmojiScreen() {
     }
 }
 
+
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewEmojiScreen() {
+    val navController = rememberNavController()
     MaterialTheme {
-        EmojiScreen()
+        EmojiScreen(navController)
     }
 }
