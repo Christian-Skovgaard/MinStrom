@@ -15,7 +15,7 @@ fun AppNavigation() {
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "start-screen") {
                 composable("start-screen") {
-                       ScreenLinea(navController)
+                       HomeScreen(navController)
                 }
 
                 composable("camping-screen") {
