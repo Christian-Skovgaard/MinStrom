@@ -27,7 +27,7 @@ fun EmojiScreen() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "🤠", fontSize = 64.sp, color = Color.Black)
+        Text(text = "😒", fontSize = 64.sp, color = Color.Black)
     }
 }
 
