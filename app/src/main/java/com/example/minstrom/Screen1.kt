@@ -115,7 +115,6 @@ fun Screen1(
 
             TaskBox("Opvaskemaskine")
             TaskBox("Opvaskemaskine")
-            menuButton(navController)
         }
     }
 }
