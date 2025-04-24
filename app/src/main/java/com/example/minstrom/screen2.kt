@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 
-class Screen2ViewModel:ViewModel() {
+class Screen2ViewModel constructor(val device:Device):ViewModel() {
 
 }
 
