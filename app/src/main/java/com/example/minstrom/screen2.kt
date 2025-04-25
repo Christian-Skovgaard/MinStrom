@@ -26,14 +26,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 
 class Screen2ViewModel:ViewModel() {
 
 }
 
-@Preview(showBackground = true)
+
 @Composable
-fun Screen2 () {
+fun Screen2 ( navController: NavController) {
     Column (
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -46,6 +47,7 @@ fun Screen2 () {
         //færdig
     }
 }
+
 
 @Composable
 fun Title (text:String) {

@@ -34,7 +34,7 @@ import androidx.navigation.NavController
 fun menuButton(
     navController: NavController
 ){
-    //virkelig questianble og ikke virkende hjemmelavet knap...
+    //virkelig questianble (og ikke virkende )hjemmelavet knap...
     Button( onClick = {/*navController.menuScreen()*/ },
         shape = CircleShape,
         colors = ButtonDefaults.buttonColors(containerColor = Color.White)
@@ -65,14 +65,16 @@ fun TextOnPage(textInput: String, fontSizeInput: Int) {
 
 //box til opgaver screen1
 @Composable
-fun TaskBox(title: String) {
+fun TaskBox(title: String, navController: NavController) {
     Box(
         modifier = Modifier
             .size(350.dp, 80.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(Color.White, shape = RoundedCornerShape(16.dp))
-            .clickable { println("$title clicked") }
-            .padding(15.dp),
+            .padding(15.dp)
+            .clickable {
+                navController.navigate("screen-2") //navigerer til screen2
+            },
         contentAlignment = Alignment.TopStart
     ) {
         Row {
@@ -113,8 +115,9 @@ fun Screen1(
             Spacer(modifier = Modifier.height(20.dp))
             TextOnPage("Planlæg", 30)
 
-            TaskBox("Opvaskemaskine")
-            TaskBox("Opvaskemaskine")
+            TaskBox("Opvaskemaskine", navController)
+            TaskBox("Opvaskemaskine", navController)
+
         }
     }
 }
