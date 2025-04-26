@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +33,7 @@ class Screen2ViewModel constructor(val device:Device):ViewModel() {
 
 }
 
-@Preview(showBackground = true)
+
 @Composable
 fun Screen2 () {
     Column (
@@ -119,3 +121,17 @@ fun SettingButton(
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun ConfirmationButton () {
+    Button(
+        onClick = fun () {},
+        modifier = Modifier,
+        colors = ButtonDefaults.buttonColors(containerColor = Color.Yellow)
+
+    ) {
+        Text(
+            text = "Færdig"
+        )
+    }
+}
