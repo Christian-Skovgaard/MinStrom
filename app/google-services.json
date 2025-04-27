@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "741282309513",
+    "project_id": "minstrom-44b7a",
+    "storage_bucket": "minstrom-44b7a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741282309513:android:c609743ad4427cda106d58",
+        "android_client_info": {
+          "package_name": "com.example.minstrom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARR1YoUSFLyTOKIOyBre8Az8Xpk5tYZZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
