@@ -21,12 +21,16 @@ class Device(
     var noteficationEnable:Boolean = false,
     //vi sender og får dem i string, det bliver converted til "30m" fx
     //notificationTimeBefore er kun talt i minutter
-    var notificationTimeBefore: Duration = 30.minutes
+    var notificationTimeBefore: Duration = 30.minutes,
+
+    var note:String = "",
 
     //gentagelser er det problem til en anden dag
     //man kunne med fordel bruge Local.Date.of().dayOfWeek
 ) {
     val calculatedStartTime:LocalTime = LocalTime.of(0,0)
+
+    /*
 
     //  --setters og getters--
 
@@ -44,4 +48,7 @@ class Device(
     fun getNotificationTimeBeforeAsString ():String {
         return notificationTimeBefore.toString()
     }
+
+
+     */
 }

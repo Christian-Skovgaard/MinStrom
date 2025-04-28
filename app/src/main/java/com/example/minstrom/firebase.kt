@@ -17,15 +17,15 @@ class Firebase () {
 
     val deviceCollection = db.collection("devices")
 
-    fun getDeviceList ():List<TestObj> {
-        val returnList = mutableListOf<TestObj>()
+    fun getDeviceList ():List<Device> {
+        val returnList = mutableListOf<Device>()
 
         deviceCollection.get()
             .addOnSuccessListener { documents ->
                 if (documents != null) {
                     for (document in documents) {
                         Log.d("DBCall", "DocumentSnapshot data: ${document.data}")
-                        val device = document.toObject<TestObj>()   //toObject() virker kun hvis class'en har default values
+                        val device = document.toObject<Device>()   //toObject() virker kun hvis class'en har default values
                         device.id = document.id
                         returnList.add(device)
                         Log.d("DBCall", "Device: ${device}")
@@ -44,7 +44,6 @@ class Firebase () {
     }
 
     fun setDeviceDate (device:Device) {
-        deviceCollection.document()
+        val document = deviceCollection.document(device.id).set(device)
     }
 }
-
