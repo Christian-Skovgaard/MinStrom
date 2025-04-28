@@ -18,7 +18,7 @@ class Device(
     //liste over brugere som for notefikation om planen
     var associatedUsers:MutableList<User> = mutableListOf(),
 
-    var noteficationEnable:Boolean = false,
+    var notificationEnable:Boolean = false,
     //vi sender og får dem i string, det bliver converted til "30m" fx
     //notificationTimeBefore er kun talt i minutter
     var notificationTimeBefore: Duration = 30.minutes,
@@ -30,6 +30,30 @@ class Device(
 ) {
     val calculatedStartTime:LocalTime = LocalTime.of(0,0)
 
+    fun getDeviceTransferClass ():DeviceTransferClass {
+
+        return DeviceTransferClass(
+            id = id,
+            name = name,
+            userStartTime = userStartTime.toString(),
+            userStopTime = userStopTime.toString(),
+            associatedUsers = associatedUsers.toString(),
+            notificationEnable = notificationEnable.toString(),
+            notificationTimeBefore = notificationTimeBefore.toString(),
+            note = note
+        )
+    }
+
+    fun importDeviceTransferClass (transferObj:DeviceTransferClass) {
+        id = transferObj.id
+        name = transferObj.name
+        userStartTime = LocalTime.parse(transferObj.userStartTime)
+        userStopTime = LocalTime.parse(transferObj.userStopTime)
+        //associatedUsers = transferObj.associatedUsers.toList<User>()
+        notificationEnable = transferObj.notificationEnable.toBoolean()
+        notificationTimeBefore = transferObj.notificationTimeBefore.toLong().toDuration(DurationUnit.MINUTES)
+        note = transferObj.note
+    }
     /*
 
     //  --setters og getters--
@@ -52,3 +76,4 @@ class Device(
 
      */
 }
+

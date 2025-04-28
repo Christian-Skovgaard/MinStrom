@@ -29,10 +29,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            firebasetesting()
+            listTesting()
             val navController = rememberNavController()
             Navhost(navController = navController)
-            testTime()
+
         }
     }
 }
@@ -52,4 +52,11 @@ fun testTime () {
     var newTime = LocalTime.parse(string)
 
     Log.d("VERYVISABLETAG",newTime.toString())
+}
+
+fun listTesting () {
+    val list = mutableListOf(User("Indieana Jones","26"))
+    list.add(User("Jesus","1"))
+    Log.d("VERYVISABLETAG", list.joinToString())
+
 }

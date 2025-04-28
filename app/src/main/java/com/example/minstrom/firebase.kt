@@ -46,4 +46,6 @@ class Firebase () {
     fun setDeviceDate (device:Device) {
         val document = deviceCollection.document(device.id).set(device)
     }
+
+
 }
