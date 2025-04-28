@@ -14,7 +14,7 @@ fun Navhost(navController: NavHostController) {
             Screen1(navController)
         }
         composable("screen-2") {
-            Screen2()
+            Screen2(navController)
         }
     }
 }

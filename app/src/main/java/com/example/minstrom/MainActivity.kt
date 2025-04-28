@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            getDeviceList()
             val navController = rememberNavController()
             Navhost(navController = navController)
         }
