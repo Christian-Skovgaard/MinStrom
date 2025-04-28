@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.minstrom.screen1elements.TextOnPage
 
 class Screen2ViewModel constructor(val device:Device):ViewModel() {
 
@@ -97,18 +98,13 @@ fun SubTitle (text:String) {
 fun ButtonSelection () {
     Column {
         //vi knapperne en overskrift + composables med indhold til bottomSheet
-        SettingButton(text = "Notifikationer", bottomSheetIndhold = {test()})
-        SettingButton("Tilføj brugere", {test()})
-        SettingButton("Kalender", {})
-        SettingButton("Skriv Note", {})
+        SettingButton("Notifikationer", { BottomSheetNotifikation() })
+        SettingButton("Tilføj brugere", { BottomSheetTilføjBruger() })
+        SettingButton("Kalender", { Text("Det her har vi ikke lavet:)") })
+        SettingButton("Skriv Note", { BottomSheetNote() })
     }
 }
 
-//its a test
-@Composable
-fun test() {
-    Text("test")
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -153,6 +149,50 @@ fun SettingButton(
                 }
             }
         }
+    }
+}
+
+
+@Composable
+fun BottomSheetNotifikation() {
+    Column(
+        modifier = Modifier
+            .padding(8.dp)
+
+    ) {
+        TextOnPage("Indstil notifikation", 15)
+        //sej måde at vælge tid på...
+        //by remenber
+        //gem det i database
+    }
+}
+
+@Composable
+fun BottomSheetTilføjBruger() {
+    Column(
+        modifier = Modifier
+            .padding(8.dp)
+
+    ) {
+        TextOnPage("Tilføj ansvarlige brugere", 15)
+        //hent og vis brugere fra database
+        //boks -> if clicked r nogen valgt? som toggle
+        //gem det i database
+    }
+}
+
+//Linea vil gerne lave tekstfeltet<3
+@Composable
+fun BottomSheetNote() {
+    Column(
+        modifier = Modifier
+            .padding(8.dp)
+
+    ) {
+        TextOnPage("Tilføj ansvarlige brugere", 15)
+        //hent og vis brugere fra database
+        //boks -> if clicked r nogen valgt? som toggle
+        //gem det i database
     }
 }
 
