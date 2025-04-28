@@ -13,7 +13,6 @@ fun Navhost(navController: NavHostController) {
         composable("Screen-1") {
             Screen1(navController)
         }
-
         composable("screen-2") {
             Screen2()
         }
