@@ -25,8 +25,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             Navhost(navController = navController)
-
-
         }
     }
 }

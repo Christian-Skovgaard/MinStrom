@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 
-class Screen2ViewModel:ViewModel() {
+class Screen2ViewModel constructor(val device:Device):ViewModel() {
 
 }
 
@@ -44,7 +46,7 @@ fun Screen2 ( navController: NavController) {
         //prisbox
         //slider
         ButtonSelection()
-        //færdig
+        ConfirmationButton ()
     }
 }
 
@@ -86,11 +88,10 @@ fun SubTitle (text:String) {
 @Composable
 fun ButtonSelection () {
     Column {
-        SettingButton("Vælg tid")
         SettingButton("Notefikationer")
         SettingButton("Tilføj brugere")
         SettingButton("Kalender")
-
+        SettingButton("Skriv Note")
     }
 }
 
@@ -121,3 +122,16 @@ fun SettingButton(
     }
 }
 
+
+@Composable
+fun ConfirmationButton () {
+    Button(
+        onClick = fun () {},
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0A7EFD)),
+        modifier = Modifier.fillMaxWidth(0.6f)
+    ) {
+        Text(
+            text = "Færdig"
+        )
+    }
+}
