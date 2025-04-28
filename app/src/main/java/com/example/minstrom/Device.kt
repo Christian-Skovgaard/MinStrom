@@ -16,6 +16,7 @@ class Device(
     var userStopTime:LocalTime = LocalTime.of(0,0),
 
     //liste over brugere som for notefikation om planen
+    //listen gemmer userId som string
     var associatedUsers:MutableList<String> = mutableListOf(),
 
     var notificationEnable:Boolean = false,
