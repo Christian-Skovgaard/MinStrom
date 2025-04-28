@@ -75,6 +75,7 @@ fun Screen1(
                     .width(380.dp)
                     .clip(RoundedCornerShape(16.dp))
             )
+            TextOnPage("Dine apparater", 18)
             //list of tasks
             TaskBox(
                 "Opvaskemaskine",
