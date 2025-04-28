@@ -25,8 +25,11 @@ class Firebase () {
                 if (documents != null) {
                     for (document in documents) {
                         Log.d("DBCall", "DocumentSnapshot data: ${document.data}")
-                        val device = document.toObject<Device>()   //toObject() virker kun hvis class'en har default values
-                        device.id = document.id
+                        val deviceTransferObj = document.toObject<DeviceTransferClass>()   //toObject() virker kun hvis class'en har default values
+                        deviceTransferObj.id = document.id
+
+                        val device = Device()
+                        device.importDeviceTransferClass(deviceTransferObj)
                         returnList.add(device)
                         Log.d("DBCall", "Device: ${device}")
                     }

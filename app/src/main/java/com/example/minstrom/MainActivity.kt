@@ -34,6 +34,7 @@ class MainActivity : ComponentActivity() {
             Navhost(navController = navController)
 
         }
+        firebasetesting()
     }
 }
 
@@ -41,8 +42,8 @@ fun firebasetesting () {
     val firebase: Firebase = Firebase()
     firebase.getDeviceList()
 
-    val device = Device("Xa98xLpviJRyHzb00jjV","Sidewinder Mk I",LocalTime.of(15,40))
-    firebase.setDeviceDate(device)
+    //val device = Device("Xa98xLpviJRyHzb00jjV","Sidewinder Mk I",LocalTime.of(15,40))
+    //firebase.setDeviceDate(device)
 }
 
 fun testTime () {
@@ -57,6 +58,9 @@ fun testTime () {
 fun listTesting () {
     val list = mutableListOf(User("Indieana Jones","26"))
     list.add(User("Jesus","1"))
-    Log.d("VERYVISABLETAG", list.toString())
+    val string = list.joinToString()
+    val newList = string.split(",")
+
+    Log.d("VERYVISABLETAG", newList.joinToString())
 
 }

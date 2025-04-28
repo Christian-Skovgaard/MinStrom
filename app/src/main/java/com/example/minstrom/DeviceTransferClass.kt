@@ -1,7 +1,7 @@
 package com.example.minstrom
 
 data class DeviceTransferClass (
-    val id:String = "",
+    var id:String = "",     //id er var fordi den bliver overwritten efter obj bliver lavet som verify-check
     val name:String = "unnamed",
     val userStartTime:String = "00:00",
     val userStopTime:String = "00:00",

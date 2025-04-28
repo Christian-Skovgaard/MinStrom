@@ -16,7 +16,7 @@ class Device(
     var userStopTime:LocalTime = LocalTime.of(0,0),
 
     //liste over brugere som for notefikation om planen
-    var associatedUsers:MutableList<User> = mutableListOf(),
+    var associatedUsers:MutableList<String> = mutableListOf(),
 
     var notificationEnable:Boolean = false,
     //vi sender og får dem i string, det bliver converted til "30m" fx
@@ -37,7 +37,7 @@ class Device(
             name = name,
             userStartTime = userStartTime.toString(),
             userStopTime = userStopTime.toString(),
-            associatedUsers = associatedUsers.toString(),
+            associatedUsers = associatedUsers.joinToString(),
             notificationEnable = notificationEnable.toString(),
             notificationTimeBefore = notificationTimeBefore.toString(),
             note = note
@@ -49,7 +49,7 @@ class Device(
         name = transferObj.name
         userStartTime = LocalTime.parse(transferObj.userStartTime)
         userStopTime = LocalTime.parse(transferObj.userStopTime)
-        //associatedUsers = transferObj.associatedUsers.toList<User>()
+        associatedUsers = transferObj.associatedUsers.split(",").toMutableList()
         notificationEnable = transferObj.notificationEnable.toBoolean()
         notificationTimeBefore = transferObj.notificationTimeBefore.toLong().toDuration(DurationUnit.MINUTES)
         note = transferObj.note
