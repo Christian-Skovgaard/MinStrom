@@ -57,6 +57,6 @@ fun testTime () {
 fun listTesting () {
     val list = mutableListOf(User("Indieana Jones","26"))
     list.add(User("Jesus","1"))
-    Log.d("VERYVISABLETAG", list.joinToString())
+    Log.d("VERYVISABLETAG", list.toString())
 
 }
