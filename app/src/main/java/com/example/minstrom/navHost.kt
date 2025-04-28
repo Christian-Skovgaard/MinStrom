@@ -9,12 +9,12 @@ import com.example.minstrom.Screen1
 
 @Composable
 fun Navhost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "screen-2") {
+    NavHost(navController = navController, startDestination = "screen-1") {
         composable("Screen-1") {
             Screen1(navController)
         }
         composable("screen-2") {
-            Screen2()
+            Screen2(navController)
         }
     }
 }
