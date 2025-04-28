@@ -28,8 +28,9 @@ import com.example.minstrom.R
 @Composable
 fun TaskBox(
         title: String,
+        //device: Device,
         navController: NavController,
-        img: Painter
+        img: Int
 ) {
     Box(
         modifier = Modifier
@@ -38,6 +39,7 @@ fun TaskBox(
             .background(Color.White, shape = RoundedCornerShape(16.dp))
             .padding(15.dp)
             .clickable {
+                //how to sende device med
                 navController.navigate("screen-2") //navigerer til screen2
             },
         contentAlignment = Alignment.TopStart
@@ -47,7 +49,7 @@ fun TaskBox(
                 .padding(5.dp)
         ) {
             //ikon
-            Image( painter = img,
+            Image( painter = painterResource(img),
                   contentDescription = null)
 
             Column {

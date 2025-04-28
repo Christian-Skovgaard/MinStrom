@@ -21,4 +21,6 @@ class Device(
     //man kunne med fordel bruge Local.Date.of().dayOfWeek
 ) {
     val calculatedStartTime:LocalTime = LocalTime.of(0,0)
+
+    val img: Int? = null
 }

@@ -14,6 +14,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.minstrom.screen1elements.BlueButton
 import com.example.minstrom.screen1elements.MenuButton
@@ -31,6 +37,8 @@ import com.example.minstrom.screen1elements.TextOnPage
 fun Screen1(
     navController: NavController
 ) {
+    val screen1ViewModel = viewModel<Screen1ViewModel>();
+
     val hexadecimal = "#E9EFEC" //baggrundsfarve fra figma prototype
     val color = Color(hexadecimal.toColorInt())
     Box(
@@ -76,7 +84,9 @@ fun Screen1(
                     .clip(RoundedCornerShape(16.dp))
             )
             TextOnPage("Dine apparater", 18)
+
             //list of tasks
+            /*
             TaskBox(
                 "Opvaskemaskine",
                 navController,
@@ -85,6 +95,21 @@ fun Screen1(
                 "Vaskemaskemaskine",
                 navController,
                 img = painterResource(R.drawable.imgopvask))
+            */
+
+            //henter devices og laver en flot box til hver af dem
+           if (screen1ViewModel.deviceList.isNotEmpty()) {
+               for(device in screen1ViewModel.deviceList) {
+                   TaskBox(
+                       title = device.name,
+                       navController = navController,
+                       img = device.img ?: R.drawable.imgvaskemaskine //hvis du printer den finder du det ID som ku komme i firebase
+                   )
+               }
+           }
+
+
+
 
             BlueButton("Tilføj plan", navController)
         }
