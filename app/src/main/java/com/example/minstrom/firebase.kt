@@ -7,33 +7,43 @@ import com.google.firebase.firestore.toObject
 
 data class TestObj (
     val name:String = "",
-    //val associatedUsers:List<String>,
-    val notificationEnable:Boolean = false
+    val notificationEnable:Boolean = false,
+    var id:String = ""
 )
 
-fun getDeviceList () {
+class Firebase () {
 
-    val db = Firebase.firestore
+    val db = Firebase.firestore     //connection detaljer ligger i app/google-services.json
 
-    val docRef = db.collection("devices")
-    //.document("jd9bhcf0iQW8x0zpXCPw")
+    val deviceCollection = db.collection("devices")
 
-    docRef.get()
-        .addOnSuccessListener { documents ->
-            if (documents != null) {
-                for (document in documents) {
-                    Log.d("Vask", "DocumentSnapshot data: ${document}")
-                    val device = document.toObject<TestObj>()
-                    Log.d("Vask", "Device: ${device}")
+    fun getDeviceList ():List<Device> {
+        val returnList = mutableListOf<Device>()
+
+        deviceCollection.get()
+            .addOnSuccessListener { documents ->
+                if (documents != null) {
+                    for (document in documents) {
+                        Log.d("DBCall", "DocumentSnapshot data: ${document.data}")
+                        val device = document.toObject<Device>()   //toObject() virker kun hvis class'en har default values
+                        device.id = document.id
+                        returnList.add(device)
+                        Log.d("DBCall", "Device: ${device}")
+                    }
+
+                    //Log.d("Vask", "DocumentSnapshot data: ${document}")
+                } else {
+                    Log.d("DBCall", "List is empty")
                 }
-
-                //Log.d("Vask", "DocumentSnapshot data: ${document}")
-            } else {
-                Log.d("Vask", "List is empty")
             }
-        }
-        .addOnFailureListener { exception ->
-            Log.d("Vask", "get failed with ", exception)
-        }
-}
+            .addOnFailureListener { exception ->
+                Log.d("DBCall", "get failed with ", exception)
+            }
 
+        return returnList.toList()
+    }
+
+    fun setDeviceDate (device:Device) {
+        val document = deviceCollection.document(device.id).set(device)
+    }
+}
