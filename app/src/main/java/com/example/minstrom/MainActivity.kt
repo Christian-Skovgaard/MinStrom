@@ -25,14 +25,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             Navhost(navController = navController)
-
-            Column {
-                Text(
-                    text = "Navigation App Example",
-                    fontSize = 20.sp
-                )
-            }
-
         }
     }
 }

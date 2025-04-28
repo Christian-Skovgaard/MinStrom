@@ -33,7 +33,7 @@ class Screen2ViewModel constructor(val device:Device):ViewModel() {
 
 }
 
-
+@Preview(showBackground = true)
 @Composable
 fun Screen2 () {
     Column (
@@ -45,7 +45,7 @@ fun Screen2 () {
         //prisbox
         //slider
         ButtonSelection()
-        //færdig
+        ConfirmationButton ()
     }
 }
 
@@ -86,11 +86,10 @@ fun SubTitle (text:String) {
 @Composable
 fun ButtonSelection () {
     Column {
-        SettingButton("Vælg tid")
         SettingButton("Notefikationer")
         SettingButton("Tilføj brugere")
         SettingButton("Kalender")
-
+        SettingButton("Skriv Note")
     }
 }
 
@@ -121,14 +120,13 @@ fun SettingButton(
     }
 }
 
-@Preview(showBackground = true)
+
 @Composable
 fun ConfirmationButton () {
     Button(
         onClick = fun () {},
-        modifier = Modifier,
-        colors = ButtonDefaults.buttonColors(containerColor = Color.Yellow)
-
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0A7EFD)),
+        modifier = Modifier.fillMaxWidth(0.6f)
     ) {
         Text(
             text = "Færdig"
