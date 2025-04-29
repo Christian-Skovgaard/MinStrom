@@ -1,5 +1,6 @@
 package com.example.minstrom
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -43,11 +44,26 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.minstrom.screen1elements.TextOnPage
+import com.google.firebase.Firebase
+import kotlinx.coroutines.launch
 
-class Screen2ViewModel constructor(val device:Device):ViewModel() {
+class Screen2ViewModel constructor(deviceId:String):ViewModel() {
+    var isLoading:Boolean = true
+    val firebase = Firebase()
+    var device by mutableStateOf(Device())
+    init {
+        viewModelScope.launch {
+            val deviceFromFireStore = firebase.getDevice(deviceId)
+            if (deviceFromFireStore != null) {
+                device = deviceFromFireStore
+            }
 
+            Log.d("visableTag","Device instaciated")
+        }
+    }
 }
 
 

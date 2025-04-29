@@ -45,6 +45,18 @@ class Firebase () {
         return returnList.toList()
     }
 
+    suspend fun getDevice (deviceId:String): Device? {
+        val device = Device()
+
+        val deviceTransferObj =  deviceCollection.document(deviceId).get().await().toObject<DeviceTransferClass>()
+
+        if (deviceTransferObj != null) {
+            device.importDeviceTransferClass(deviceTransferObj)
+            return device
+        } else {
+            return null}
+    }
+
     fun setDeviceDate (device:Device) {
         val document = deviceCollection.document(device.id).set(device)
     }

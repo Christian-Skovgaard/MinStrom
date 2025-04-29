@@ -87,5 +87,4 @@ fun listTesting () {
     val newList = string.split(",")
 
     Log.d("VERYVISABLETAG", newList.joinToString())
-
 }
