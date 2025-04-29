@@ -29,7 +29,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            firebasetesting()
             val navController = rememberNavController()
             Navhost(navController = navController)
         }
@@ -75,5 +74,4 @@ fun listTesting () {
     val newList = string.split(",")
 
     Log.d("VERYVISABLETAG", newList.joinToString())
-
 }

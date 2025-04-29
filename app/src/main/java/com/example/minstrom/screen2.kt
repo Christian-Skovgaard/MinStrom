@@ -1,5 +1,6 @@
 package com.example.minstrom
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -36,22 +37,38 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.minstrom.screen1elements.TextOnPage
+import com.google.firebase.Firebase
+import kotlinx.coroutines.launch
 
-class Screen2ViewModel constructor(val device:Device):ViewModel() {
+class Screen2ViewModel constructor(deviceId:String):ViewModel() {
+    var isLoading:Boolean = true
+    val firebase = Firebase()
+    var device by mutableStateOf(Device())
+    init {
+        viewModelScope.launch {
+            val deviceFromFireStore = firebase.getDevice(deviceId)
+            if (deviceFromFireStore != null) {
+                device = deviceFromFireStore
+            }
 
+            Log.d("visableTag","Device instaciated")
+        }
+    }
 }
 
 
 @Composable
-fun Screen2 ( navController: NavController) {
+fun Screen2 (navController: NavController, deviceId: String) {
+    val screen2ViewModel =  Screen2ViewModel(deviceId)
     Column (
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Title("Planlægning")
-        SubTitle("Vaskemaskine")
+        SubTitle(screen2ViewModel.device.name)
         //prisbox
         //slider
         ButtonSelection()

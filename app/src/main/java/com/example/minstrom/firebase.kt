@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
+import kotlinx.coroutines.tasks.await
 
 data class TestObj (
     val name:String = "",
@@ -45,6 +46,18 @@ class Firebase () {
             }
 
         return returnList.toList()
+    }
+
+    suspend fun getDevice (deviceId:String): Device? {
+        val device = Device()
+
+        val deviceTransferObj =  deviceCollection.document(deviceId).get().await().toObject<DeviceTransferClass>()
+
+        if (deviceTransferObj != null) {
+            device.importDeviceTransferClass(deviceTransferObj)
+            return device
+        } else {
+            return null}
     }
 
     fun setDeviceDate (device:Device) {
