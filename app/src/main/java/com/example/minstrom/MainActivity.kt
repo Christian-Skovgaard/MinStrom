@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            firebasetesting()
             val navController = rememberNavController()
             Navhost(navController = navController)
         }
@@ -51,6 +52,8 @@ fun firebasetesting () {
     )
 
     val device = Device()
+
+    device.importDeviceTransferClass(deviceTransferObj)
 
     Log.d("VERYVISABLETAG",device.toString())
 

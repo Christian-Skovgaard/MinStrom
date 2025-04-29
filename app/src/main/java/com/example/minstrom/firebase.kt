@@ -27,6 +27,7 @@ class Firebase () {
                         Log.d("DBCall", "DocumentSnapshot data: ${document.data}")
                         val deviceTransferObj = document.toObject<DeviceTransferClass>()   //toObject() virker kun hvis class'en har default values
                         deviceTransferObj.id = document.id
+                        Log.d("DBCall", "DeviceTransferObj: ${deviceTransferObj}")
 
                         val device = Device()
                         device.importDeviceTransferClass(deviceTransferObj)
