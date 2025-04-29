@@ -29,12 +29,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            listTesting()
             val navController = rememberNavController()
             Navhost(navController = navController)
-
         }
-        firebasetesting()
     }
 }
 
@@ -42,8 +39,21 @@ fun firebasetesting () {
     val firebase: Firebase = Firebase()
     firebase.getDeviceList()
 
-    //val device = Device("Xa98xLpviJRyHzb00jjV","Sidewinder Mk I",LocalTime.of(15,40))
-    //firebase.setDeviceDate(device)
+    val deviceTransferObj = DeviceTransferClass(
+        id = "25",
+        name = "Darth Vader",
+        userStartTime = "14:30",
+        userStopTime = "18:26",
+        associatedUsers = "01,45",
+        notificationEnable = "true",
+        notificationTimeBefore = "50",
+        note = "Jeg elsker lagkage"
+    )
+
+    val device = Device()
+
+    Log.d("VERYVISABLETAG",device.toString())
+
 }
 
 fun testTime () {

@@ -55,6 +55,10 @@ class Device(
         notificationTimeBefore = transferObj.notificationTimeBefore.toLong().toDuration(DurationUnit.MINUTES)
         note = transferObj.note
     }
+
+    override fun toString(): String {
+        return "Device(id='$id', name='$name', userStartTime=$userStartTime, userStopTime=$userStopTime, associatedUsers=$associatedUsers, notificationEnable=$notificationEnable, notificationTimeBefore=$notificationTimeBefore, note='$note', calculatedStartTime=$calculatedStartTime, img=$img)"
+    }
     /*
 
     //  --setters og getters--
