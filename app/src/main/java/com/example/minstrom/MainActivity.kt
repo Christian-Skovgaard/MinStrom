@@ -14,10 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 import com.example.minstrom.ui.theme.MinstromTheme
+import com.google.firebase.Firebase
 import java.time.LocalTime
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
@@ -29,13 +31,22 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            firebasetesting()
             val navController = rememberNavController()
             Navhost(navController = navController)
+            GetUsers()
         }
     }
 }
 
+//Henter alle users og printer dem (i system.out)
+@Composable
+fun GetUsers() {
+    val userViewModel: UserViewModel = viewModel()
+    //kalder getFromDatabase fra instandensen herover
+    userViewModel.getFromDatabase()
+}
+
+/*
 fun firebasetesting () {
     val firebase: Firebase = Firebase()
     firebase.getDeviceList()
@@ -58,6 +69,7 @@ fun firebasetesting () {
     Log.d("VERYVISABLETAG",device.toString())
 
 }
+*/
 
 fun testTime () {
     var time: LocalTime = LocalTime.of(15,30)

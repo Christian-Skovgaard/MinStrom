@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
+import kotlinx.coroutines.tasks.await
 
 data class TestObj (
     val name:String = "",
@@ -12,14 +13,11 @@ data class TestObj (
 )
 
 class Firebase () {
-
     val db = Firebase.firestore     //connection detaljer ligger i app/google-services.json
-
     val deviceCollection = db.collection("devices")
 
     fun getDeviceList ():List<Device> {
         val returnList = mutableListOf<Device>()
-
         deviceCollection.get()
             .addOnSuccessListener { documents ->
                 if (documents != null) {

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +22,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -50,6 +52,7 @@ fun Screen2 ( navController: NavController) {
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        //lav viewmodel
         Title("Planlægning")
         SubTitle("Vaskemaskine")
         //prisbox
@@ -101,7 +104,7 @@ fun ButtonSelection () {
         SettingButton("Notifikationer", { BottomSheetNotifikation() })
         SettingButton("Tilføj brugere", { BottomSheetTilføjBruger() })
         SettingButton("Kalender", { Text("Det her har vi ikke lavet:)") })
-        SettingButton("Skriv Note", { BottomSheetNote() })
+        SettingButton("Skriv note", { BottomSheetNote() })
     }
 }
 
@@ -189,10 +192,20 @@ fun BottomSheetNote() {
             .padding(8.dp)
 
     ) {
-        TextOnPage("Tilføj ansvarlige brugere", 15)
-        //hent og vis brugere fra database
-        //boks -> if clicked r nogen valgt? som toggle
-        //gem det i database
+        //de her er i viewmodel nu og skal hentes derfra
+        var noteText by remember { mutableStateOf("") }
+
+        TextOnPage("Tilføj note", 15)
+        Spacer(modifier = Modifier.height(15.dp))
+        // Title input
+        TextField(
+            value = noteText,
+            label = { Text("Tilføj note her") },
+            modifier = Modifier.fillMaxWidth(),
+            onValueChange = { /*viewmodel.*/noteText = it }
+        )
+
+        //noteText skal i database når færdig trykkes
     }
 }
 
@@ -208,4 +221,7 @@ fun ConfirmationButton () {
             text = "Færdig"
         )
     }
+
+
+    //skal kalde en funktion i viewmodel hvor der ligger state til alle sagerne.
 }
