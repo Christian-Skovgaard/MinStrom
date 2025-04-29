@@ -16,7 +16,7 @@ class Firebase () {
     val db = Firebase.firestore     //connection detaljer ligger i app/google-services.json
     val deviceCollection = db.collection("devices")
 
-    fun getDeviceList ():List<Device> {
+    suspend fun getDeviceList ():List<Device> {
         val returnList = mutableListOf<Device>()
         deviceCollection.get()
             .addOnSuccessListener { documents ->

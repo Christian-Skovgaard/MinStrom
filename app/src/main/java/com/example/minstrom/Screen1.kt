@@ -35,10 +35,9 @@ import com.example.minstrom.screen1elements.TextOnPage
 
 @Composable
 fun Screen1(
-    navController: NavController
+    navController: NavController,
+    deviceList:List<Device>
 ) {
-    val screen1ViewModel = viewModel<Screen1ViewModel>();
-
     val hexadecimal = "#E9EFEC" //baggrundsfarve fra figma prototype
     val color = Color(hexadecimal.toColorInt())
     Box(
@@ -99,8 +98,8 @@ fun Screen1(
             */
 
             //henter devices og laver en flot box til hver af dem
-           if (screen1ViewModel.deviceList.isNotEmpty()) {
-               for(device in screen1ViewModel.deviceList) {
+           if (deviceList.isNotEmpty()) {
+               for(device in deviceList) {
                    TaskBox(
                        title = device.name,
                        navController = navController,
