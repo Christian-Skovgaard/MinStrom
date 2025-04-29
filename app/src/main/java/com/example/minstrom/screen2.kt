@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -22,8 +24,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.currentCompositionLocalContext
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,10 +36,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColorInt
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
@@ -61,64 +68,40 @@ class Screen2ViewModel constructor(deviceId:String):ViewModel() {
 
 
 @Composable
-fun Screen2 (navController: NavController, deviceId: String) {
-    val screen2ViewModel =  Screen2ViewModel(deviceId)
+fun Screen2 ( navController: NavController) {
+    val hexadecimal = "#E9EFEC" //baggrundsfarve fra figma prototype
+    val color = Color(hexadecimal.toColorInt())
+
+    //lav viewmodel
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color)
+    ) {
     Column (
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp), //afstand mellem elementerne
     ) {
-        Title("Planlægning")
-        SubTitle(screen2ViewModel.device.name)
+        Spacer(modifier = Modifier.height(20.dp))
+        TextOnPage("Planlægning", 30)
+        TextOnPage("Vaskemaskine", 20)
         //prisbox
         //slider
         ButtonSelection()
-        ConfirmationButton ()
+        ConfirmationButton (navController)
     }
 }
-
-
-@Composable
-fun Title (text:String) {
-    Box(modifier = Modifier
-        .fillMaxWidth(),
-        contentAlignment = Alignment.Center
-
-    ) {
-        Text(
-            text=text,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            fontSize = 30.sp,
-        )
     }
-}
-
-@Composable
-fun SubTitle (text:String) {
-    Box(modifier = Modifier
-        .fillMaxWidth(),
-        contentAlignment = Alignment.Center
-
-    ) {
-        Text(
-            text=text,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            fontSize = 20.sp,
-        )
-    }
-}
-
-
 
 @Composable
 fun ButtonSelection () {
     Column {
         //vi knapperne en overskrift + composables med indhold til bottomSheet
-        SettingButton("Notifikationer", { BottomSheetNotifikation() })
+        SettingButton("Indtil notifikation", { BottomSheetNotifikation() })
         SettingButton("Tilføj brugere", { BottomSheetTilføjBruger() })
-        SettingButton("Kalender", { Text("Det her har vi ikke lavet:)") })
-        SettingButton("Skriv Note", { BottomSheetNote() })
+        SettingButton("Tilføj til kalender", { Text("Det her har vi ikke lavet:)") })
+        SettingButton("Tilføj note", { BottomSheetNote() })
     }
 }
 
@@ -127,6 +110,7 @@ fun ButtonSelection () {
 @Composable
 fun SettingButton(
     text: String,
+    //img: Int,
     bottomSheetIndhold: @Composable ()-> Unit //den modtager en composable med indholdet til bottomsheet
 ) {
     var showBottomSheet by remember { mutableStateOf(false) }
@@ -137,17 +121,24 @@ fun SettingButton(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .clip(RoundedCornerShape(20.dp))
+            .padding(12.dp)
+            .clip(RoundedCornerShape(16.dp))
             .background(Color.White)
-            .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp))
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .border(1.dp, Color.LightGray, RoundedCornerShape(16.dp))
+            .padding(horizontal = 20.dp, vertical = 12.dp)
             .clickable(onClick = { showBottomSheet = true }) //OnClick
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
+
             //image
+            Image(painter = painterResource(R.drawable.imgtilfojnote), //man skal kunne vælge...
+                //måske med noget ala
+                //age(painter = painterResource(id = selectedImage.value)
+                contentDescription = null,
+                Modifier.size(40.dp))
+
             Text(
                 text = text,
                 color = Color.Black,
@@ -177,7 +168,10 @@ fun BottomSheetNotifikation() {
             .padding(8.dp)
 
     ) {
+        var notifikation by remember { mutableStateOf("") } //?
+
         TextOnPage("Indstil notifikation", 15)
+
         //sej måde at vælge tid på...
         //by remenber
         //gem det i database
@@ -191,6 +185,7 @@ fun BottomSheetTilføjBruger() {
             .padding(8.dp)
 
     ) {
+        Spacer(modifier = Modifier.height(15.dp))
         TextOnPage("Tilføj ansvarlige brugere", 15)
         //hent og vis brugere fra database
         //boks -> if clicked r nogen valgt? som toggle
@@ -198,7 +193,6 @@ fun BottomSheetTilføjBruger() {
     }
 }
 
-//Linea vil gerne lave tekstfeltet<3
 @Composable
 fun BottomSheetNote() {
     Column(
@@ -206,23 +200,43 @@ fun BottomSheetNote() {
             .padding(8.dp)
 
     ) {
-        TextOnPage("Tilføj ansvarlige brugere", 15)
-        //hent og vis brugere fra database
-        //boks -> if clicked r nogen valgt? som toggle
-        //gem det i database
+        //de her er i viewmodel nu og skal hentes derfra
+        var noteText by remember { mutableStateOf("") }
+
+        TextOnPage("Tilføj note", 15)
+        Spacer(modifier = Modifier.height(15.dp))
+        // Title input
+        TextField(
+            value = noteText,
+            label = { Text("Tilføj note her") },
+            modifier = Modifier.fillMaxWidth(),
+            onValueChange = { /*viewmodel.*/noteText = it }
+        )
+
+        //noteText skal i database når færdig trykkes
     }
 }
 
 
 @Composable
-fun ConfirmationButton () {
+fun ConfirmationButton (
+    navController: NavController
+) {
     Button(
-        onClick = fun () {},
+        onClick = fun () {
+            navController.navigate("screen-1") //navigerer til screen1
+            //og sender data til viewmodel + databas
+        },
         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0A7EFD)),
-        modifier = Modifier.fillMaxWidth(0.6f)
+        modifier = Modifier
+            .fillMaxWidth(0.6f)
+            .padding(10.dp)
     ) {
         Text(
-            text = "Færdig"
+            text = "Færdig",
+            fontSize = 25.sp
         )
     }
+
+    //skal kalde en funktion i viewmodel hvor der ligger state til alle sagerne.
 }

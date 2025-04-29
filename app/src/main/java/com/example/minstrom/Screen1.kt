@@ -104,7 +104,7 @@ fun Screen1(
                    TaskBox(
                        title = device.name,
                        navController = navController,
-                       img = device.img ?: R.drawable.imgvaskemaskine //hvis du printer den finder du det ID som ku komme i firebase
+                        img = device.img ?: R.drawable.imgvaskemaskine//hvis du printer den finder du det ID som ku komme i firebase
                    )
                }
            }

@@ -80,6 +80,6 @@ class Device(
 
 
      */
-
+    //for billede
     val img: Int? = null
 }
