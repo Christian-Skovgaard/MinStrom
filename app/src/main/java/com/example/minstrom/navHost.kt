@@ -8,14 +8,16 @@ import com.example.minstrom.Screen1
 
 
 @Composable
-fun Navhost(navController: NavHostController) {
-    val Screen2ViewModel =  Screen2ViewModel("KjBSQ5HXcBAhcGZZtrcC")
-    NavHost(navController = navController, startDestination = "screen-2") {
+fun Navhost(navController: NavHostController, appViewModel: AppViewModel) {
+    NavHost(navController = navController, startDestination = "Screen-1") {
         composable("Screen-1") {
-            Screen1(navController)
+            Screen1(
+                navController = navController,
+                appViewModel = appViewModel
+            )
         }
-        composable("screen-2") {
-            Screen2(navController,"KjBSQ5HXcBAhcGZZtrcC")
+        composable("Screen-2") {
+            Screen2(navController,appViewModel)
         }
     }
 }

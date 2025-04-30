@@ -50,25 +50,8 @@ import com.example.minstrom.screen1elements.TextOnPage
 import com.google.firebase.Firebase
 import kotlinx.coroutines.launch
 
-class Screen2ViewModel constructor(deviceId:String):ViewModel() {
-    var isLoading:Boolean = true
-    val firebase = Firebase()
-    var device by mutableStateOf(Device())
-    init {
-        viewModelScope.launch {
-            val deviceFromFireStore = firebase.getDevice(deviceId)
-            if (deviceFromFireStore != null) {
-                device = deviceFromFireStore
-            }
-
-            Log.d("visableTag","Device instaciated")
-        }
-    }
-}
-
-
 @Composable
-fun Screen2 ( navController: NavController) {
+fun Screen2 (navController: NavController,appViewModel:AppViewModel) {
     val hexadecimal = "#E9EFEC" //baggrundsfarve fra figma prototype
     val color = Color(hexadecimal.toColorInt())
 
@@ -85,7 +68,7 @@ fun Screen2 ( navController: NavController) {
     ) {
         Spacer(modifier = Modifier.height(20.dp))
         TextOnPage("Planlægning", 30)
-        TextOnPage("Vaskemaskine", 20)
+        TextOnPage(appViewModel.selectedDevice.name, 20)
         //prisbox
         //slider
         ButtonSelection()

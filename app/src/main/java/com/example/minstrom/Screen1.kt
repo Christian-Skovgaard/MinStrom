@@ -1,5 +1,6 @@
 package com.example.minstrom
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,7 +38,7 @@ import com.example.minstrom.screen1elements.TextOnPage
 @Composable
 fun Screen1(
     navController: NavController,
-    deviceList:List<Device>
+    appViewModel: AppViewModel
 ) {
     val hexadecimal = "#E9EFEC" //baggrundsfarve fra figma prototype
     val color = Color(hexadecimal.toColorInt())
@@ -98,17 +100,13 @@ fun Screen1(
             */
 
             //henter devices og laver en flot box til hver af dem
-           if (deviceList.isNotEmpty()) {
-               for(device in deviceList) {
-                   TaskBox(
-                       title = device.name,
-                       navController = navController,
-                        img = device.img ?: R.drawable.imgvaskemaskine//hvis du printer den finder du det ID som ku komme i firebase
-                   )
-               }
-           }
-
-
+            for (device in appViewModel.deviceList) {
+                TaskBox(
+                    device = device,
+                    appViewModel = appViewModel,
+                    navController = navController,
+                )
+            }
 
 
             BlueButton("Tilføj plan", navController)
