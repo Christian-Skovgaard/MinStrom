@@ -51,7 +51,6 @@ fun Screen1(
         Row(
             modifier = Modifier
             .fillMaxWidth()
-            //.padding(5.dp),
             ,horizontalArrangement = Arrangement.End
         ) {
             Spacer(modifier = Modifier.height(15.dp)) //kunne godt tænke mig at den kom lidt længere ned...
