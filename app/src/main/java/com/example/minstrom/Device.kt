@@ -1,5 +1,9 @@
 package com.example.minstrom
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import java.time.LocalTime
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
@@ -7,28 +11,40 @@ import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
 class Device(
-    var id:String = "",     //id er var fordi den bliver tilføjet efter classen er blevet initialized i db-kald
-    var name:String = "unnamed",
+    id:String = "",     //id er var fordi den bliver tilføjet efter classen er blevet initialized i db-kald
+    name:String = "unnamed",
+    userStartTime:LocalTime = LocalTime.of(0,0),
+    userStopTime:LocalTime = LocalTime.of(0,0),
+    associatedUsers:MutableList<String> = mutableListOf(),
+    notificationEnable:Boolean = false,
+    notificationTimeBefore: Duration = 30.minutes,
+    note:String = "",
+    imgId: Int = 0,
+) {
+    var id:String by mutableStateOf(id)     //id er var fordi den bliver tilføjet efter classen er blevet initialized i db-kald
+    var name:String by mutableStateOf(name)
 
     //tidsrummet hvor brugeren vil have sit device til at starte
     //i string form skrives det som 15:40
-    var userStartTime:LocalTime = LocalTime.of(0,0),
-    var userStopTime:LocalTime = LocalTime.of(0,0),
+    var userStartTime:LocalTime by mutableStateOf(userStartTime)
+    var userStopTime:LocalTime by mutableStateOf(userStopTime)
 
     //liste over brugere som for notefikation om planen
     //listen gemmer userId som string
-    var associatedUsers:MutableList<String> = mutableListOf(),
+    //var associatedUsers:MutableList<String> by mutableStateListOf<String>().apply { addAll(associatedUsers) }
 
-    var notificationEnable:Boolean = false,
+    var notificationEnable:Boolean by mutableStateOf(notificationEnable)
     //vi sender og får dem i string, det bliver converted til "30m" fx
     //notificationTimeBefore er kun talt i minutter
-    var notificationTimeBefore: Duration = 30.minutes,
+    var notificationTimeBefore: Duration by mutableStateOf(notificationTimeBefore)
 
-    var note:String = "",
+    var note:String by mutableStateOf(note)
+    var imgId: Int by mutableStateOf(imgId)
 
     //gentagelser er det problem til en anden dag
     //man kunne med fordel bruge Local.Date.of().dayOfWeek
-) {
+
+
     val calculatedStartTime:LocalTime = LocalTime.of(0,0)
 
     fun getDeviceTransferClass ():DeviceTransferClass {
@@ -38,7 +54,7 @@ class Device(
             name = name,
             userStartTime = userStartTime.toString(),
             userStopTime = userStopTime.toString(),
-            associatedUsers = associatedUsers.joinToString(),
+            //associatedUsers = associatedUsers.joinToString(),
             notificationEnable = notificationEnable.toString(),
             notificationTimeBefore = notificationTimeBefore.toString(),
             note = note
@@ -50,14 +66,14 @@ class Device(
         name = transferObj.name
         userStartTime = LocalTime.parse(transferObj.userStartTime)
         userStopTime = LocalTime.parse(transferObj.userStopTime)
-        associatedUsers = transferObj.associatedUsers.split(",").toMutableList()
+        //associatedUsers = transferObj.associatedUsers.split(",").toMutableList()
         notificationEnable = transferObj.notificationEnable.toBoolean()
         notificationTimeBefore = transferObj.notificationTimeBefore.toLong().toDuration(DurationUnit.MINUTES)
         note = transferObj.note
     }
 
     override fun toString(): String {
-        return "Device(id='$id', name='$name', userStartTime=$userStartTime, userStopTime=$userStopTime, associatedUsers=$associatedUsers, notificationEnable=$notificationEnable, notificationTimeBefore=$notificationTimeBefore, note='$note', calculatedStartTime=$calculatedStartTime, img=$img)"
+        return "Device(id='$id', name='$name', userStartTime=$userStartTime, userStopTime=$userStopTime, associatedUsers=associatedUsers, notificationEnable=$notificationEnable, notificationTimeBefore=$notificationTimeBefore, note='$note', calculatedStartTime=$calculatedStartTime, imgId=$imgId)"
     }
     /*
 
@@ -80,6 +96,6 @@ class Device(
 
 
      */
-    //for billede
-    val img: Int? = null
+
 }
+

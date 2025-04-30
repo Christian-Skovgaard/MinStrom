@@ -31,13 +31,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val appViewModel:AppViewModel = AppViewModel()
         setContent {
+            val appViewModel:AppViewModel = AppViewModel()
             val navController = rememberNavController()
-            Navhost(navController = navController)
-            GetUsers()
-
-            println(R.drawable.imgvaskemaskine)
+            Navhost(navController = navController,appViewModel = appViewModel)
         }
     }
 }

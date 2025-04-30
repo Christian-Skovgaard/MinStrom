@@ -21,16 +21,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.minstrom.AppViewModel
 import com.example.minstrom.Device
 import com.example.minstrom.R
 
 //box til opgaver screen1
 @Composable
 fun TaskBox(
-        title: String,
-        //device: Device,
-        navController: NavController,
-        img: Painter
+        device: Device,
+        appViewModel: AppViewModel,
+        navController: NavController
 ) {
     Box(
         modifier = Modifier
@@ -38,10 +38,11 @@ fun TaskBox(
             .clip(RoundedCornerShape(16.dp))
             .background(Color.White, shape = RoundedCornerShape(16.dp))
             .padding(15.dp)
-            .clickable {
-                //how to sende device med
-                navController.navigate("screen-2") //navigerer til screen2
-            },
+            .clickable{
+                appViewModel.updateSelectedDevice(device)
+                navController.navigate("Screen-2")
+            }
+        ,
         contentAlignment = Alignment.TopStart
     ) {
         Row(
@@ -49,12 +50,12 @@ fun TaskBox(
                 .padding(5.dp)
         ) {
             //ikon
-            Image( painter = img,
-                 contentDescription = null)
+            //Image( painter = painterResource(device.imgId),
+                  //contentDescription = null)
 
             Column {
                 Text(
-                    text = title,
+                    text = device.name,
                     color = Color.Black,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold
