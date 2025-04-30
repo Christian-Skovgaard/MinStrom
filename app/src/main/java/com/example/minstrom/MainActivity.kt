@@ -18,6 +18,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import com.example.minstrom.screen1elements.TaskBox
 import com.example.minstrom.ui.theme.MinstromTheme
 import com.google.firebase.Firebase
 import java.time.LocalTime
@@ -35,6 +36,8 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             Navhost(navController = navController)
             GetUsers()
+
+            println(R.drawable.imgvaskemaskine)
         }
     }
 }

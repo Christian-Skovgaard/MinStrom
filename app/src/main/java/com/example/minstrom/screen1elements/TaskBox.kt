@@ -30,7 +30,7 @@ fun TaskBox(
         title: String,
         //device: Device,
         navController: NavController,
-        img: Int
+        img: Painter
 ) {
     Box(
         modifier = Modifier
@@ -49,8 +49,8 @@ fun TaskBox(
                 .padding(5.dp)
         ) {
             //ikon
-            Image( painter = painterResource(img),
-                  contentDescription = null)
+            Image( painter = img,
+                 contentDescription = null)
 
             Column {
                 Text(

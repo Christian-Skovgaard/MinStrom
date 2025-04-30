@@ -27,6 +27,16 @@ class UserViewModel: ViewModel() {
         }
     }
 
+    //og en til at få en bestemt user udfra id
+    fun getOneUserFromDatabase(userId: String) {
+        viewModelScope.launch {
+            var result = repository.getOne(userId)
+            println(result) //bliver nødt til at vente på at den har hentet alle før den printer.
+            userList.toString()
+        }
+    }
 
-    //og en til at få en bestemt user udfra id??
+    //eller man kunne undersøge mange til mange forhold i firestore
+    //https://fireship.io/courses/firestore-data-modeling/relational-many-to-many/
+
 }

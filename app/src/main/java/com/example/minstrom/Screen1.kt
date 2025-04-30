@@ -85,8 +85,7 @@ fun Screen1(
 
             TextOnPage("Dine apparater", 18)
 
-            //list of tasks
-            /*
+            //list of tasks - billedet gider kun at virke hvis det fås således hardkodet...
             TaskBox(
                 "Opvaskemaskine",
                 navController,
@@ -95,9 +94,10 @@ fun Screen1(
                 "Vaskemaskemaskine",
                 navController,
                 img = painterResource(R.drawable.imgopvask))
-            */
+
 
             //henter devices og laver en flot box til hver af dem
+            /*
            if (deviceList.isNotEmpty()) {
                for(device in deviceList) {
                    TaskBox(
@@ -107,6 +107,8 @@ fun Screen1(
                    )
                }
            }
+
+             */
 
 
 

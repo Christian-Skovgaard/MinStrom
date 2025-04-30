@@ -133,7 +133,7 @@ fun SettingButton(
         ) {
 
             //image
-            Image(painter = painterResource(R.drawable.imgtilfojnote), //man skal kunne vælge...
+            Image(painter = painterResource(R.drawable.imgnotifikation), //man skal kunne vælge...
                 //måske med noget ala
                 //age(painter = painterResource(id = selectedImage.value)
                 contentDescription = null,
