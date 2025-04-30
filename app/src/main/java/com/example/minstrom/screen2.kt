@@ -183,9 +183,10 @@ fun BottomSheetNotifikation(appViewModel: AppViewModel) {
                 minTime = LocalTime.MIN(),
                 maxTime = LocalTime.MAX(),
                 timeFormat = TimeFormat.HOUR_24,
-                height = 60.dp,
+                height = 80.dp,
                 rowCount = 2,
                 onTimeChangeListener = { snappedDate ->     //vi omdanner Localtime til Duration
+                    Log.d("VeryVisableTag",snappedDate.toString())
                     val timeAsDuration = appViewModel.selectedDevice.notificationTimeBeforeToDuration(snappedDate)
                     appViewModel.selectedDevice.notificationTimeBefore = timeAsDuration
                 }
