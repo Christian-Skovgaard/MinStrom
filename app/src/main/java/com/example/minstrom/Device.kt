@@ -3,6 +3,7 @@ package com.example.minstrom
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import java.time.LocalTime
 import kotlin.time.Duration
@@ -31,7 +32,8 @@ class Device(
 
     //liste over brugere som for notefikation om planen
     //listen gemmer userId som string
-    var associatedUsers:MutableList<String> = mutableStateListOf(*associatedUsers.toTypedArray())
+    var associatedUsers:MutableList<String> = mutableStateListOf(*associatedUsers.toTypedArray()) //this makses no senseeee mmhmayeah
+
 
     var notificationEnable:Boolean by mutableStateOf(notificationEnable)
     //vi sender og får dem i string, det bliver converted til "30m" fx
@@ -73,7 +75,7 @@ class Device(
     }
 
     override fun toString(): String {
-        return "Device(id='$id', name='$name', userStartTime=$userStartTime, userStopTime=$userStopTime, associatedUsers=associatedUsers, notificationEnable=$notificationEnable, notificationTimeBefore=$notificationTimeBefore, note='$note', calculatedStartTime=$calculatedStartTime, imgId=$imgId)"
+        return "Device(id='$id', name='$name', userStartTime=$userStartTime, userStopTime=$userStopTime, associatedUsers=$associatedUsers, notificationEnable=$notificationEnable, notificationTimeBefore=$notificationTimeBefore, note='$note', calculatedStartTime=$calculatedStartTime, imgId=$imgId)"
     }
 
     //de her to funktioner er til fordi vi har gemt vores notificationTimeBefore som Duration, men det library vi har brugt

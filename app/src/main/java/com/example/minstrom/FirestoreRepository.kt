@@ -1,7 +1,9 @@
 package com.example.minstrom
 
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class FirestoreRepository {
@@ -17,4 +19,14 @@ class FirestoreRepository {
     }
 
     //og en til at få en bestemt user udfra id??
+        suspend fun getOne(id: String):String {
+            val foundUser = db.collection("users")
+                .document(id)
+                .get()
+                .await()
+                .toObject(User::class.java)
+        if (foundUser!=null) {
+            return foundUser.name
+        } else return ""
+        }
 }

@@ -104,7 +104,7 @@ fun Screen1(
                 TaskBox(
                     device = device,
                     appViewModel = appViewModel,
-                    navController = navController,
+                    navController = navController
                 )
             }
 

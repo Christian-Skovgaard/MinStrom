@@ -30,7 +30,7 @@ import com.example.minstrom.R
 fun TaskBox(
         device: Device,
         appViewModel: AppViewModel,
-        navController: NavController,
+        navController: NavController
 ) {
     Box(
         modifier = Modifier
@@ -60,7 +60,7 @@ fun TaskBox(
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold
                 )
-                TextOnPage("Kl noget...", 15)
+                TextOnPage("Kl: ${device.userStartTime}", 15)
             }
         }
     }

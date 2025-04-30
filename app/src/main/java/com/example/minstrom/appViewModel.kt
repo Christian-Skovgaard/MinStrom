@@ -12,7 +12,7 @@ class AppViewModel:ViewModel() {
     var deviceList: List<Device> by mutableStateOf(listOf(
         Device(
             id = "26",
-            name = "Tie-Fighter",
+            name = "Tie-Fighter"
         ),
         Device(
             id = "2",
