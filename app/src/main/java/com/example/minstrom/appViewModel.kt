@@ -13,14 +13,14 @@ class AppViewModel:ViewModel() {
     var deviceList: List<Device> by mutableStateOf(listOf(
         Device(
             id = "1",
-            name = "Vaskemaskine",
+            name = "vaskemaskine",
             imgId = 2130968612,
             userStartTime = LocalTime.of(4, 30),
             userStopTime = LocalTime.of(5,0)
         ),
         Device(
             id = "2",
-            name = "Opvaskemaskine",
+            name = "opvaskemaskine",
             imgId = 2130968609,
             userStartTime = LocalTime.of(5, 15),
             userStopTime = LocalTime.of(6,0)

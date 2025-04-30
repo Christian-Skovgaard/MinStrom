@@ -88,13 +88,26 @@ fun Screen2 (navController: NavController,appViewModel:AppViewModel) {
 fun ButtonSelection (appViewModel:AppViewModel) {
     Column {
         //vi knapperne en overskrift + composables med indhold til bottomSheet
-        SettingButton("Indtil notifikation", { BottomSheetNotifikation(appViewModel) })
+        SettingButton(
+            "Indtil notifikation",
+            img = 2130968606, //bell ikon
+            { BottomSheetNotifikation(appViewModel) },
+        )
         SettingButton(
             "Tilføj brugere",
+            2130968610, //bruger ikon
             { BottomSheetTilføjBruger(appViewModel = appViewModel, userViewModel = UserViewModel())}
         )
-        SettingButton("Tilføj til kalender", { Text("Det her har vi ikke lavet:)") })
-        SettingButton("Tilføj note", { BottomSheetNote() })
+        SettingButton(
+            "Tilføj til kalender",
+            2130968608, //ikon gentag-vibes
+            { Text("Her ville man kunne vælge at ${appViewModel.selectedDevice.name} skulle planlægges til at køre f.eks et bestemt antal gange om ugen") }
+        )
+        SettingButton(
+            "Tilføj note",
+            2130968611, //note ikon
+            { BottomSheetNote() }
+        )
     }
 }
 
@@ -103,7 +116,7 @@ fun ButtonSelection (appViewModel:AppViewModel) {
 @Composable
 fun SettingButton(
     text: String,
-    //img: Int,
+    img: Int,
     bottomSheetIndhold: @Composable ()-> Unit //den modtager en composable med indholdet til bottomsheet
 ) {
     var showBottomSheet by remember { mutableStateOf(false) }
@@ -126,9 +139,7 @@ fun SettingButton(
         ) {
 
             //image
-            Image(painter = painterResource(R.drawable.imgtilfojnote), //man skal kunne vælge...
-                //måske med noget ala
-                //age(painter = painterResource(id = selectedImage.value)
+            Image(painter = painterResource(img),
                 contentDescription = null,
                 Modifier.size(40.dp))
 
@@ -180,8 +191,8 @@ fun BottomSheetNotifikation(appViewModel: AppViewModel) {
                 title = "",
                 doneLabel = "Save",
                 startTime = appViewModel.selectedDevice.notificationTimeBeforeToLocalTime(appViewModel.selectedDevice.notificationTimeBefore),
-                minTime = LocalTime.MIN(),
-                maxTime = LocalTime.MAX(),
+                minTime = kotlinx.datetime.LocalTime.MIN(),
+                maxTime = kotlinx.datetime.LocalTime.MAX(),
                 timeFormat = TimeFormat.HOUR_24,
                 height = 200.dp,
                 rowCount = 3,
@@ -197,16 +208,19 @@ fun BottomSheetNotifikation(appViewModel: AppViewModel) {
 @Composable
 fun BottomSheetTilføjBruger(
     appViewModel: AppViewModel,
-    userViewModel: UserViewModel = viewModel()
+    userViewModel: UserViewModel
 ) {
+    val users = userViewModel.userList
+
+    //variablel til at gemme associaed users i men de er kun id
+    val associatedUsers = appViewModel.selectedDevice.associatedUsers
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val users = userViewModel.userList
-
         Spacer(modifier = Modifier.height(15.dp))
         TextOnPage("Rediger ansvarlige brugere for ${appViewModel.selectedDevice.name}", 20)
 
@@ -215,28 +229,34 @@ fun BottomSheetTilføjBruger(
             userViewModel.getFromDatabase()
         }
         LazyColumn {
-            items(users.size) {index ->
-                var checkItem by remember {
-                    mutableStateOf(false)
+            items(users.size) { index ->
+                val user = users[index]
+                var isChecked by remember {
+                    //mutableStateOf(false)
+                    mutableStateOf(associatedUsers.contains(user.id))
                 }
-
-                Row {
-                    Checkbox(
-                        checked = checkItem,
-                        onCheckedChange = { checkedStatus -> checkItem = checkedStatus },
-                    )
-                    TextOnPage(
-                        users[index].toString(), 20
-                    )
-                //gem valg...
+                    Row {
+                        Checkbox(
+                            checked = isChecked,
+                            onCheckedChange = {checkedStatus ->
+                                isChecked = checkedStatus
+                                //Sørger for at lægge user.id ind i associatedUsers når de er tjekket
+                                if (checkedStatus) {
+                                    if (!associatedUsers.contains(user.id)) {
+                                        associatedUsers.add(user.id.toString())
+                                    }
+                                } else {
+                                    associatedUsers.remove(user.id)
+                                }
+                            }
+                        )
+                        TextOnPage("${user.name}", 20)
+                    }
                 }
             }
-        }
-        //variablel til at gemme associaed users i men de er kun id
-        //val associatedUsers = appViewModel.selectedDevice.associatedUsers.toString()
 
+        }
     }
-}
 
 @Composable
 fun BottomSheetNote() {
@@ -263,6 +283,7 @@ fun BottomSheetNote() {
 }
 
 
+
 @Composable
 fun ConfirmationButton (
     navController: NavController
@@ -282,6 +303,5 @@ fun ConfirmationButton (
             fontSize = 25.sp
         )
     }
-
-    //skal kalde en funktion i viewmodel hvor der ligger state til alle sagerne.
+    //burde lidt kalde en funktion i viewmodel hvor der ligger state til alle sagerne.
 }

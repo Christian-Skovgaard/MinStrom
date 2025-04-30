@@ -18,7 +18,7 @@ data class User (
     constructor() : this(null.toString(), null)
 
     override fun toString(): String {
-        return "$name"
+        return "$name"; "$id"
     }
 }
 

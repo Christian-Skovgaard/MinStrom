@@ -36,9 +36,10 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             Navhost(navController = navController,appViewModel = appViewModel)
 
-        println(R.drawable.imgvaskemaskine)
-            println(R.drawable.imgopvask)
-
+            println(R.drawable.imgbell)
+            println(R.drawable.imgtilfojbruger)
+            println(R.drawable.imgnotifikation)
+            println(R.drawable.imgtilfojnote)
         }
     }
 }
