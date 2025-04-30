@@ -31,7 +31,7 @@ class Device(
 
     //liste over brugere som for notefikation om planen
     //listen gemmer userId som string
-    //var associatedUsers:MutableList<String> by mutableStateListOf<String>().apply { addAll(associatedUsers) }
+    var associatedUsers:MutableList<String> = mutableStateListOf(*associatedUsers.toTypedArray())
 
     var notificationEnable:Boolean by mutableStateOf(notificationEnable)
     //vi sender og får dem i string, det bliver converted til "30m" fx
@@ -54,7 +54,7 @@ class Device(
             name = name,
             userStartTime = userStartTime.toString(),
             userStopTime = userStopTime.toString(),
-            //associatedUsers = associatedUsers.joinToString(),
+            associatedUsers = associatedUsers.joinToString(),
             notificationEnable = notificationEnable.toString(),
             notificationTimeBefore = notificationTimeBefore.toString(),
             note = note
@@ -66,7 +66,7 @@ class Device(
         name = transferObj.name
         userStartTime = LocalTime.parse(transferObj.userStartTime)
         userStopTime = LocalTime.parse(transferObj.userStopTime)
-        //associatedUsers = transferObj.associatedUsers.split(",").toMutableList()
+        associatedUsers = transferObj.associatedUsers.split(",").toMutableList()
         notificationEnable = transferObj.notificationEnable.toBoolean()
         notificationTimeBefore = transferObj.notificationTimeBefore.toLong().toDuration(DurationUnit.MINUTES)
         note = transferObj.note
