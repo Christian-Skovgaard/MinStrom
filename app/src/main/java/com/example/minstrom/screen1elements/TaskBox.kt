@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,7 +35,7 @@ fun TaskBox(
 ) {
     Box(
         modifier = Modifier
-            .size(380.dp, 90.dp)
+            .width(380.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(Color.White, shape = RoundedCornerShape(16.dp))
             .padding(15.dp)
@@ -50,18 +51,32 @@ fun TaskBox(
                 .padding(5.dp)
         ) {
             //ikon
-            //Image( painter = painterResource(device.imgId),
-                  //contentDescription = null)
+            Image( painter = painterResource(device.imgId),
+                contentDescription = null,
+                modifier = Modifier
+                    .width(50.dp) //maksstørrelse
+                    .padding(5.dp)
+            )
 
             Column {
                 Text(
                     text = device.name,
                     color = Color.Black,
-                    fontSize = 15.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
-                TextOnPage("Kl: ${device.userStartTime}", 15)
+                TextOnPage("Planlagt til kl: ${device.userStartTime} - ${device.userStopTime}", 15)
+                TextOnPage("Notifikationer til: ${device.notificationEnable}" , 15)
             }
         }
+        //if notifikationer er til så vis billede af klokke?
+        if (device.notificationEnable == true) {
+            Image( painter = painterResource(R.drawable.imgbell),
+                contentDescription = null,
+                modifier = Modifier
+                    .width(50.dp) //maksstørrelse
+                    .padding(5.dp))
+        }
+
     }
 }

@@ -6,17 +6,24 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import java.time.LocalTime
 
 class AppViewModel:ViewModel() {
     var isLoading = true
     var deviceList: List<Device> by mutableStateOf(listOf(
         Device(
-            id = "26",
-            name = "Tie-Fighter"
+            id = "1",
+            name = "Vaskemaskine",
+            imgId = 2130968612,
+            userStartTime = LocalTime.of(4, 30),
+            userStopTime = LocalTime.of(5,0)
         ),
         Device(
             id = "2",
-            name = "El-guitar",
+            name = "Opvaskemaskine",
+            imgId = 2130968609,
+            userStartTime = LocalTime.of(5, 15),
+            userStopTime = LocalTime.of(6,0)
         )
     ))
     val firebase = Firebase()
