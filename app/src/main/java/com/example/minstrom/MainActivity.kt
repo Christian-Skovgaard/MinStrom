@@ -35,11 +35,6 @@ class MainActivity : ComponentActivity() {
             val appViewModel:AppViewModel = AppViewModel()
             val navController = rememberNavController()
             Navhost(navController = navController,appViewModel = appViewModel)
-
-            println(R.drawable.imgbell)
-            println(R.drawable.imgtilfojbruger)
-            println(R.drawable.imgnotifikation)
-            println(R.drawable.imgtilfojnote)
         }
     }
 }
