@@ -24,6 +24,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -38,10 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
@@ -50,6 +48,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.minstrom.screen1elements.TextOnPage
+import kotlinx.datetime.LocalTime
+import network.chaintech.kmp_date_time_picker.ui.timepicker.WheelTimePickerComponent.WheelTimePicker
+import network.chaintech.kmp_date_time_picker.utils.MAX
+import network.chaintech.kmp_date_time_picker.utils.MIN
+import network.chaintech.kmp_date_time_picker.utils.TimeFormat
 import com.google.firebase.Firebase
 import kotlinx.coroutines.launch
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
@@ -82,16 +85,13 @@ fun Screen2 (navController: NavController,appViewModel:AppViewModel) {
     }
 
 @Composable
-fun ButtonSelection (appViewModel: AppViewModel) {
+fun ButtonSelection (appViewModel:AppViewModel) {
     Column {
         //vi knapperne en overskrift + composables med indhold til bottomSheet
-        SettingButton(
-            "Indtil notifikation",
-                 { BottomSheetNotifikation() }
-        )
+        SettingButton("Indtil notifikation", { BottomSheetNotifikation(appViewModel) })
         SettingButton(
             "Tilføj brugere",
-                 { BottomSheetTilføjBruger(appViewModel = appViewModel, userViewModel = UserViewModel())}
+            { BottomSheetTilføjBruger(appViewModel = appViewModel, userViewModel = UserViewModel())}
         )
         SettingButton("Tilføj til kalender", { Text("Det her har vi ikke lavet:)") })
         SettingButton("Tilføj note", { BottomSheetNote() })
@@ -126,7 +126,7 @@ fun SettingButton(
         ) {
 
             //image
-            Image(painter = painterResource(R.drawable.imgnotifikation), //man skal kunne vælge...
+            Image(painter = painterResource(R.drawable.imgtilfojnote), //man skal kunne vælge...
                 //måske med noget ala
                 //age(painter = painterResource(id = selectedImage.value)
                 contentDescription = null,
@@ -155,20 +155,43 @@ fun SettingButton(
 
 
 @Composable
-fun BottomSheetNotifikation(
-) {
+fun BottomSheetNotifikation(appViewModel: AppViewModel) {
     Column(
         modifier = Modifier
             .padding(8.dp)
 
     ) {
-        var notifikation by remember { mutableStateOf("") } //?
+        Column {
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Notification")
+                Switch(
+                    checked = appViewModel.selectedDevice.notificationEnable,
+                    onCheckedChange = {
+                        appViewModel.selectedDevice.notificationEnable = !appViewModel.selectedDevice.notificationEnable
+                        Log.d("DeviceUpdate",appViewModel.selectedDevice.notificationEnable.toString())
+                    },
+                    enabled = true,
+                )
+            }
+            WheelTimePicker(
+                title = "",
+                doneLabel = "",
+                startTime = appViewModel.selectedDevice.notificationTimeBeforeToLocalTime(appViewModel.selectedDevice.notificationTimeBefore),
+                minTime = LocalTime.MIN(),
+                maxTime = LocalTime.MAX(),
+                timeFormat = TimeFormat.HOUR_24,
+                height = 60.dp,
+                rowCount = 2,
+                onTimeChangeListener = { snappedDate ->     //vi omdanner Localtime til Duration
+                    val timeAsDuration = appViewModel.selectedDevice.notificationTimeBeforeToDuration(snappedDate)
+                    appViewModel.selectedDevice.notificationTimeBefore = timeAsDuration
+                }
+            )
+        }
 
-        TextOnPage("Indstil notifikation", 15)
-
-        //sej måde at vælge tid på...
-        //by remenber
-        //gem det i database
     }
 }
 
