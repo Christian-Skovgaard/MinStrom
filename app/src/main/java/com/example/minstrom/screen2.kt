@@ -16,18 +16,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.currentCompositionLocalContext
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,19 +34,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.minstrom.screen1elements.TextOnPage
-import com.google.firebase.Firebase
-import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalTime
+import network.chaintech.kmp_date_time_picker.ui.timepicker.WheelTimePickerComponent.WheelTimePicker
+import network.chaintech.kmp_date_time_picker.utils.MAX
+import network.chaintech.kmp_date_time_picker.utils.MIN
+import network.chaintech.kmp_date_time_picker.utils.TimeFormat
 
 @Composable
 fun Screen2 (navController: NavController,appViewModel:AppViewModel) {
@@ -71,17 +67,17 @@ fun Screen2 (navController: NavController,appViewModel:AppViewModel) {
         TextOnPage(appViewModel.selectedDevice.name, 20)
         //prisbox
         //slider
-        ButtonSelection()
+        ButtonSelection(appViewModel)
         ConfirmationButton (navController)
     }
 }
     }
 
 @Composable
-fun ButtonSelection () {
+fun ButtonSelection (appViewModel:AppViewModel) {
     Column {
         //vi knapperne en overskrift + composables med indhold til bottomSheet
-        SettingButton("Indtil notifikation", { BottomSheetNotifikation() })
+        SettingButton("Indtil notifikation", { BottomSheetNotifikation(appViewModel) })
         SettingButton("Tilføj brugere", { BottomSheetTilføjBruger() })
         SettingButton("Tilføj til kalender", { Text("Det her har vi ikke lavet:)") })
         SettingButton("Tilføj note", { BottomSheetNote() })
@@ -145,19 +141,43 @@ fun SettingButton(
 
 
 @Composable
-fun BottomSheetNotifikation() {
+fun BottomSheetNotifikation(appViewModel: AppViewModel) {
     Column(
         modifier = Modifier
             .padding(8.dp)
 
     ) {
-        var notifikation by remember { mutableStateOf("") } //?
-
-        TextOnPage("Indstil notifikation", 15)
-
-        //sej måde at vælge tid på...
-        //by remenber
-        //gem det i database
+        Column {
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Notification")
+                Switch(
+                    checked = appViewModel.selectedDevice.notificationEnable,
+                    onCheckedChange = {
+                        appViewModel.selectedDevice.notificationEnable = !appViewModel.selectedDevice.notificationEnable
+                        Log.d("DeviceUpdate",appViewModel.selectedDevice.notificationEnable.toString())
+                    },
+                    enabled = true,
+                )
+            }
+            WheelTimePicker(
+                title = "",
+                doneLabel = "",
+                startTime = appViewModel.selectedDevice.notificationTimeBeforeToLocalTime(appViewModel.selectedDevice.notificationTimeBefore),
+                minTime = LocalTime.MIN(),
+                maxTime = LocalTime.MAX(),
+                timeFormat = TimeFormat.HOUR_24,
+                height = 60.dp,
+                rowCount = 2,
+                onTimeChangeListener = { snappedDate ->     //vi omdanner Localtime til Duration
+                    val timeAsDuration = appViewModel.selectedDevice.notificationTimeBeforeToDuration(snappedDate)
+                    appViewModel.selectedDevice.notificationTimeBefore = timeAsDuration
+                }
+            )
+        }
+        
     }
 }
 

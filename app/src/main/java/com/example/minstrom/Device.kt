@@ -75,6 +75,26 @@ class Device(
     override fun toString(): String {
         return "Device(id='$id', name='$name', userStartTime=$userStartTime, userStopTime=$userStopTime, associatedUsers=associatedUsers, notificationEnable=$notificationEnable, notificationTimeBefore=$notificationTimeBefore, note='$note', calculatedStartTime=$calculatedStartTime, imgId=$imgId)"
     }
+
+    //de her to funktioner er til fordi vi har gemt vores notificationTimeBefore som Duration, men det library vi har brugt
+    //til at kunne indsætte tiden tror det er et ur, og derfor giver LocalTime som variabel i steddet, derfor har vi de er to
+    //convertion funktioner til at regne frem og tilbage. Det er lidt dumt, oh well
+    fun notificationTimeBeforeToLocalTime (duration: Duration):kotlinx.datetime.LocalTime {
+        val stringList = duration.toString().split(" ")
+        if (stringList.size == 1) {
+            val totalMin = stringList[0].replace("m","").toInt()
+            return kotlinx.datetime.LocalTime(0,totalMin)
+        } else {
+            val totalHour = stringList[0].replace("h","").toInt()
+            val totalMin = stringList[1].replace("m","").toInt()
+            return kotlinx.datetime.LocalTime(totalHour,totalMin)
+        }
+    }
+    fun notificationTimeBeforeToDuration (time: kotlinx.datetime.LocalTime):Duration {
+        val stringList = time.toString().split(":")
+        val totalMin:Int = stringList[1].toInt() + stringList[0].toInt()*60     //her tager vi og lægger minutter sammen med timer, som bliver ganget med 60 for at omregne til minutter
+        return totalMin.toLong().toDuration(DurationUnit.MINUTES)
+    }
     /*
 
     //  --setters og getters--

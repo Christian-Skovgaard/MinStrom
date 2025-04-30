@@ -89,3 +89,17 @@ fun listTesting () {
 
     Log.d("VERYVISABLETAG", newList.joinToString())
 }
+
+fun timeConvertionTesting ():LocalTime {
+    val duration:Duration = 630.minutes
+    val string = duration.toString()
+    val stringList = string.split(" ")
+    if (stringList.size == 1) {
+        val totalMin = stringList[0].replace("m","").toInt()
+        return LocalTime.of(0,totalMin)
+    } else {
+        val totalHour = stringList[0].replace("h","").toInt()
+        val totalMin = stringList[1].replace("m","").toInt()
+        return LocalTime.of(totalHour,totalMin)
+    }
+}

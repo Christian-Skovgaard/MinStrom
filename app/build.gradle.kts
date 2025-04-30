@@ -64,5 +64,6 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.navigation.compose)
+    implementation("network.chaintech:kmp-date-time-picker:1.0.7")
 
 }
