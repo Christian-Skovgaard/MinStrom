@@ -178,18 +178,15 @@ fun BottomSheetNotifikation(appViewModel: AppViewModel) {
             }
             WheelTimePicker(
                 title = "",
-                doneLabel = "",
+                doneLabel = "Save",
                 startTime = appViewModel.selectedDevice.notificationTimeBeforeToLocalTime(appViewModel.selectedDevice.notificationTimeBefore),
                 minTime = LocalTime.MIN(),
                 maxTime = LocalTime.MAX(),
                 timeFormat = TimeFormat.HOUR_24,
-                height = 80.dp,
-                rowCount = 2,
-                onTimeChangeListener = { snappedDate ->     //vi omdanner Localtime til Duration
-                    Log.d("VeryVisableTag",snappedDate.toString())
-                    val timeAsDuration = appViewModel.selectedDevice.notificationTimeBeforeToDuration(snappedDate)
-                    appViewModel.selectedDevice.notificationTimeBefore = timeAsDuration
-                }
+                height = 200.dp,
+                rowCount = 3,
+                onTimeChangeListener = {snappedDate:LocalTime -> Log.d("VeryVisableTag",snappedDate.toString())},
+                onDoneClick = {data -> Log.d("VeryVisableTag","timetravel! $data")}
             )
         }
 
