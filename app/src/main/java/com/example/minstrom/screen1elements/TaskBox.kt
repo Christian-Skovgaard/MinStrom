@@ -60,7 +60,7 @@ fun TaskBox(
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold
                 )
-                TextOnPage("Kl noget...", 15)
+                TextOnPage("Kl: ${device.userStartTime}", 15)
             }
         }
     }
