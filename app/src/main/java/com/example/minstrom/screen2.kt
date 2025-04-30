@@ -178,15 +178,19 @@ fun BottomSheetNotifikation(appViewModel: AppViewModel) {
             }
             WheelTimePicker(
                 title = "",
-                doneLabel = "Save",
+                doneLabel = "Gem",
                 startTime = appViewModel.selectedDevice.notificationTimeBeforeToLocalTime(appViewModel.selectedDevice.notificationTimeBefore),
                 minTime = LocalTime.MIN(),
                 maxTime = LocalTime.MAX(),
                 timeFormat = TimeFormat.HOUR_24,
                 height = 200.dp,
                 rowCount = 3,
-                onTimeChangeListener = {snappedDate:LocalTime -> Log.d("VeryVisableTag",snappedDate.toString())},
-                onDoneClick = {data -> Log.d("VeryVisableTag","timetravel! $data")}
+                onTimeChangeListener = {snappedDate:LocalTime -> Log.d("VeryVisableTag",snappedDate.toString())},   //Det her virker ikke, så man skal trykke gem
+                onDoneClick = {
+                    Log.d("VeryVisableTag","timetravel! $it")       //it er den eneste parameter vi for ind, som er snappedData, som representere den tid pickeren er på¨når der bliver trykket done
+                    val timeInDuration = appViewModel.selectedDevice.notificationTimeBeforeToDuration(it)
+                    appViewModel.selectedDevice.notificationTimeBefore = timeInDuration
+                }
             )
         }
 
