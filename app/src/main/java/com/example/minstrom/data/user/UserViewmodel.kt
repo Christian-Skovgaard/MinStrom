@@ -1,26 +1,9 @@
-package com.example.minstrom
+package com.example.minstrom.data.user
+
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.firestore.DocumentId
 import kotlinx.coroutines.launch
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-
-
-data class User (
-    val name:String,
-    //val userId:String,
-    @DocumentId @Transient val id: String? = null //ignorer ved upload, skal kun bruges til at få doc-id ved modtagelsen
-) {
-    // Tom konstruktør til Firestore fordi chatGPT siger det
-    constructor() : this(null.toString(), null)
-
-    override fun toString(): String {
-        return "$name"; "$id"
-    }
-}
 
 class UserViewModel: ViewModel() {
     val repository = FirestoreRepository()
@@ -47,7 +30,6 @@ class UserViewModel: ViewModel() {
             userList.toString()
         }
     }
-
     //eller man kunne undersøge mange til mange forhold i firestore
     //https://fireship.io/courses/firestore-data-modeling/relational-many-to-many/
 

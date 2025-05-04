@@ -1,16 +1,17 @@
-package com.example.minstrom
+package com.example.minstrom.appViewModels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
+import com.example.minstrom.data.device.Device
+import com.example.minstrom.data.device.Firebase
 import java.time.LocalTime
 
 class AppViewModel:ViewModel() {
     var isLoading = true
     var deviceList: List<Device> by mutableStateOf(listOf(
+        //dummy data:)
         Device(
             id = "1",
             name = "vaskemaskine",
@@ -36,7 +37,7 @@ class AppViewModel:ViewModel() {
     }
 
      */
-    var selectedDevice:Device by mutableStateOf(Device())
+    var selectedDevice: Device by mutableStateOf(Device())
 
     fun updateSelectedDevice(device: Device) {
         selectedDevice = device

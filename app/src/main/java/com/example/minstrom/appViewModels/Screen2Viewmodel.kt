@@ -1,4 +1,4 @@
-package com.example.minstrom
+package com.example.minstrom.appViewModels
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 

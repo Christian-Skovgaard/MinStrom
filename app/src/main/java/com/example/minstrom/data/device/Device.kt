@@ -1,9 +1,8 @@
-package com.example.minstrom
+package com.example.minstrom.data.device
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import java.time.LocalTime
 import kotlin.time.Duration
@@ -49,7 +48,7 @@ class Device(
 
     val calculatedStartTime:LocalTime = LocalTime.of(0,0)
 
-    fun getDeviceTransferClass ():DeviceTransferClass {
+    fun getDeviceTransferClass (): DeviceTransferClass {
 
         return DeviceTransferClass(
             id = id,
@@ -63,7 +62,7 @@ class Device(
         )
     }
 
-    fun importDeviceTransferClass (transferObj:DeviceTransferClass) {
+    fun importDeviceTransferClass (transferObj: DeviceTransferClass) {
         id = transferObj.id
         name = transferObj.name
         userStartTime = LocalTime.parse(transferObj.userStartTime)

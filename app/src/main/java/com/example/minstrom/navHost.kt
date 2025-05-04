@@ -4,7 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.minstrom.Screen1
+import com.example.minstrom.appViewModels.AppViewModel
+import com.example.minstrom.screen1elements.Screen1
+import com.example.minstrom.screen2elements.Screen2
 
 
 @Composable

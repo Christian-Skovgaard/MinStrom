@@ -1,4 +1,4 @@
-package com.example.minstrom
+package com.example.minstrom.data.device
 
 import android.util.Log
 import com.google.firebase.Firebase
@@ -57,7 +57,7 @@ class Firebase () {
             return null}
     }
 
-    fun setDeviceDate (device:Device) {
+    fun setDeviceDate (device: Device) {
         val document = deviceCollection.document(device.id).set(device)
     }
 

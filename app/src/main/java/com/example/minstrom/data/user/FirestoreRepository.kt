@@ -1,9 +1,7 @@
-package com.example.minstrom
+package com.example.minstrom.data.user
 
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class FirestoreRepository {
