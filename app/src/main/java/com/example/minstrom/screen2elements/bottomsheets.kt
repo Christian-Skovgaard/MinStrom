@@ -134,7 +134,7 @@ fun BottomSheetTilføjBruger(
 }
 
 @Composable
-fun BottomSheetNote() {
+fun BottomSheetNote(appViewModel: AppViewModel) {
     Column(
         modifier = Modifier
             .padding(8.dp)
@@ -147,7 +147,7 @@ fun BottomSheetNote() {
         Spacer(modifier = Modifier.height(15.dp))
         // Title input
         TextField(
-            value = noteText,
+            value = appViewModel.selectedDevice.note,
             label = { Text("Tilføj note her") },
             modifier = Modifier.fillMaxWidth(),
             onValueChange = { /*viewmodel.*/noteText = it }

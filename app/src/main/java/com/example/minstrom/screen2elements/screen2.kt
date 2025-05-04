@@ -68,7 +68,7 @@ fun ButtonSelection (appViewModel: AppViewModel) {
         SettingButton(
             "Tilføj note",
             2130968611, //note ikon
-            { BottomSheetNote() }
+            { BottomSheetNote(appViewModel) }
         )
     }
 }

@@ -45,11 +45,16 @@ class Device(
     //gentagelser er det problem til en anden dag
     //man kunne med fordel bruge Local.Date.of().dayOfWeek
 
-
+    //Det her er variablen som skulle have gemt den til som maskinen skulle starte ud fra API'et
     val calculatedStartTime:LocalTime = LocalTime.of(0,0)
 
-    fun getDeviceTransferClass (): DeviceTransferClass {
 
+    //Det her med DeviceTransferClass er en virklig dum idé, og ville bare kunne gøre nemmere og bedre med constructoren. Den er lavet som
+    //lappeløsning fordi vores FireStore havde svært ved komplekse datatyper og vi har derfor omdannet alt til strings før
+    //vi sender det til DB. Det vil sige at vores DeviceTransferClass effektivt er et mellemlag mellem den rigtige Device-class
+    //og vores DB. Den er også lavet på et tidspunkt hvor vi havde vores variabler med komplekse datatyper i constructoren og
+    //har derfor været nødvendigt som et "pre-step" til den.
+    fun getDeviceTransferClass (): DeviceTransferClass {
         return DeviceTransferClass(
             id = id,
             name = name,
